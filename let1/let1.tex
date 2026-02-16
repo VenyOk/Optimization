@@ -1,0 +1,368 @@
+\documentclass[a4paper, 14pt]{extarticle}
+
+% Поля
+%--------------------------------------
+\usepackage{geometry}
+\geometry{a4paper,tmargin=2cm,bmargin=2cm,lmargin=3cm,rmargin=1cm}
+%--------------------------------------
+
+\usepackage{float}
+%Russian-specific packages
+%--------------------------------------
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc} 
+\usepackage[english, main=russian]{babel}
+%--------------------------------------
+
+\usepackage{textcomp}
+
+% Красная строка
+%--------------------------------------
+\usepackage{indentfirst}               
+%--------------------------------------             
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{listings,breakable}
+\newtcblisting{breakablelisting}{
+  listing only,
+  breakable,
+  enhanced,
+  frame hidden,
+  colback=white,
+  listing options={
+    mathescape=false,
+    texcl=false,
+    inputencoding=utf8,
+    literate={\$}{{\$}}1
+  }
+}
+
+
+%Graphics
+%--------------------------------------
+\usepackage{graphicx}
+\usepackage{wrapfig}
+%--------------------------------------
+\graphicspath{{./lab5/}}
+% Полуторный интервал
+%--------------------------------------
+\linespread{1.3}                    
+%--------------------------------------
+
+%Выравнивание и переносы
+%--------------------------------------
+% Избавляемся от переполнений
+\sloppy
+% Запрещаем разрыв страницы после первой строки абзаца
+\clubpenalty=10000
+% Запрещаем разрыв страницы после последней строки абзаца
+\widowpenalty=10000
+%--------------------------------------
+
+%Списки
+\usepackage{enumitem}
+
+%Подписи
+\usepackage{caption} 
+
+%Гиперссылки
+\usepackage{hyperref}
+
+\hypersetup {
+	unicode=true
+}
+
+%Рисунки
+%--------------------------------------
+\DeclareCaptionLabelSeparator*{emdash}{~--- }
+\captionsetup[figure]{labelsep=emdash,font=onehalfspacing,position=bottom}
+%--------------------------------------
+
+\usepackage{tempora}
+
+%Листинги
+%--------------------------------------
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\footnotesize, 
+  %basicstyle=\footnotesize\AnkaCoder,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks shoulbd only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=t,                    % sets the caption-position to bottom
+  inputencoding=utf8,
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\bf,       % keyword style
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  xleftmargin=25pt,
+  xrightmargin=25pt,
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  tabsize=2,                       % sets default tabsize to 8 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+%--------------------------------------
+
+%%% Математические пакеты %%%
+%--------------------------------------
+\usepackage{amsthm,amsfonts,amsmath,amssymb,amscd}  % Математические дополнения от AMS
+\usepackage{mathtools}                              % Добавляет окружение multlined
+\usepackage[perpage]{footmisc}
+%--------------------------------------
+
+%--------------------------------------
+%			НАЧАЛО ДОКУМЕНТА
+%--------------------------------------
+
+\begin{document}
+
+%--------------------------------------
+%			ТИТУЛЬНЫЙ ЛИСТ
+%--------------------------------------
+\begin{titlepage}
+\thispagestyle{empty}
+\newpage
+
+
+%Шапка титульного листа
+%--------------------------------------
+\vspace*{-60pt}
+\hspace{-65pt}
+\begin{minipage}{0.3\textwidth}
+\hspace*{-20pt}\centering
+\includegraphics[width=\textwidth]{emblem}
+\end{minipage}
+\begin{minipage}{0.67\textwidth}\small \textbf{
+\vspace*{-0.7ex}
+\hspace*{-6pt}\centerline{Министерство науки и высшего образования Российской Федерации}
+\vspace*{-0.7ex}
+\centerline{Федеральное государственное автономное образовательное учреждение }
+\vspace*{-0.7ex}
+\centerline{высшего образования}
+\vspace*{-0.7ex}
+\centerline{<<Московский государственный технический университет}
+\vspace*{-0.7ex}
+\centerline{имени Н.Э. Баумана}
+\vspace*{-0.7ex}
+\centerline{(национальный исследовательский университет)>>}
+\vspace*{-0.7ex}
+\centerline{(МГТУ им. Н.Э. Баумана)}}
+\end{minipage}
+%--------------------------------------
+
+%Полосы
+%--------------------------------------
+\vspace{-25pt}
+\hspace{-35pt}\rule{\textwidth}{2.3pt}
+
+\vspace*{-20.3pt}
+\hspace{-35pt}\rule{\textwidth}{0.4pt}
+%--------------------------------------
+
+\vspace{1.5ex}
+\hspace{-35pt} \noindent \small ФАКУЛЬТЕТ\hspace{80pt} <<Информатика и системы управления>>
+
+\vspace*{-16pt}
+\hspace{47pt}\rule{0.83\textwidth}{0.4pt}
+
+\vspace{0.5ex}
+\hspace{-35pt} \noindent \small КАФЕДРА\hspace{50pt} <<Теоретическая информатика и компьютерные технологии>>
+
+\vspace*{-16pt}
+\hspace{30pt}\rule{0.866\textwidth}{0.4pt}
+  
+\vspace{11em}
+
+\begin{center}
+\Large {\bf Летучка № 1} \\ 
+\large {\bf по курсу <<Методы оптимизации>>} \\
+\large <<Поиск минимума функции>> 
+\end{center}\normalsize
+
+\vspace{8em}
+
+
+\begin{flushright}
+  {Студент группы ИУ9-82Б Шемякин В.А. \hspace*{15pt}\\ 
+  \vspace{2ex}
+  Преподаватель Посевин Д. П.\hspace*{15pt}}
+\end{flushright}
+
+\bigskip
+
+\vfill
+ 
+
+\begin{center}
+\textsl{Москва 2026}
+\end{center}
+\end{titlepage}
+%--------------------------------------
+%		КОНЕЦ ТИТУЛЬНОГО ЛИСТА
+%--------------------------------------
+
+\renewcommand{\ttdefault}{pcr}
+
+\setlength{\tabcolsep}{3pt}
+\newpage
+\setcounter{page}{2}
+
+\section{Задание}\label{Sect::task}
+\begin{enumerate}
+\item Изучить методы:
+\begin{itemize}
+\item метод Свенна локализации минимума унимодальной функции;
+\item метод Фибоначчи поиска минимума унимодальной функции;
+\item теоремы об условиях существования минимума функции.
+\end{itemize}
+
+\item Реализовать:
+\begin{itemize}
+\item Метод Свенна — локализация интервала, содержащего минимум.
+
+\item Метод Фибоначчи — поиск минимума с заданной точностью. В консоль выводить и значение точки минимума, и заданную точность.
+
+\item Численное доказательство унимодальности целевой функции вашего варианта на компакте, полученном методом Свенна. Первую производную находить только численно (аналитически нельзя). Целевая функция должна быть обёрнута в метод (функцию).
+
+\item Численное доказательство (вторую производную аналитически находить нельзя), используя правило дождя, что найденная точка минимума действительно является минимумом, а не максимумом или точкой перегиба.
+\end{itemize}
+\end{enumerate}
+
+\textbf{Вариант 29:} функция $f(x) = |x^3-3x|$.
+
+\section{Результаты}\label{Sect::res}
+
+Исходный код программы представлен в листинге 1.
+
+\begin{breakablelisting}
+function svenn(f, x0, h)
+    x1 = x0
+    x2 = x0 + h
+    if f(x2) > f(x1)
+        h = -h
+        x2 = x0 + h
+    end
+    while f(x2) < f(x1)
+        x1 = x2
+        x2 = x1 + h
+        h = 2 * h
+    end
+    a = min(x1, x2)
+    b = max(x1, x2)
+    return a, b
+end
+
+function fibonacci_search(f, a, b, eps)
+    n = 1
+    while fib(n + 2) < (b - a) / eps
+        n += 1
+    end
+    k = 1
+    x1 = a + (b - a) * fib(n) / fib(n + 2)
+    x2 = a + (b - a) * fib(n + 1) / fib(n + 2)
+    f1 = f(x1)
+    f2 = f(x2)
+    while k < n
+        if f1 > f2
+            a = x1
+            x1 = x2
+            f1 = f2
+            x2 = a + (b - a) * fib(n - k + 1) / fib(n - k + 2)
+            f2 = f(x2)
+        else
+            b = x2
+            x2 = x1
+            f2 = f1
+            x1 = a + (b - a) * fib(n - k) / fib(n - k + 2)
+            f1 = f(x1)
+        end
+        k += 1
+    end
+    candidates = [a, b, (a + b) / 2, x1, x2]
+    x_min = candidates[1]
+    for c in candidates
+        if f(c) < f(x_min)
+            x_min = c
+        end
+    end
+    println("Точка минимума: ", x_min)
+    println("Заданная точность: ", eps)
+    return x_min, eps
+end
+
+function fib(n)
+    if n <= 1
+        return n
+    end
+    a, b = 0, 1
+    for _ in 2:n
+        a, b = b, a + b
+    end
+    return b
+end
+
+function num_derivative(f, x, delta=1e-7)
+    return (f(x + delta) - f(x - delta)) / (2 * delta)
+end
+
+function num_second_derivative(f, x, delta=1e-6)
+    return (f(x + delta) - 2 * f(x) + f(x - delta)) / (delta^2)
+end
+
+function prove_unimodality(f, a, b, n_points=100)
+    step = (b - a) / (n_points - 1)
+    sign_changes = 0
+    prev_der = num_derivative(f, a)
+    for i in 2:n_points
+        x = a + (i - 1) * step
+        der = num_derivative(f, x)
+        if (prev_der < 0 && der >= 0) || (prev_der > 0 && der <= 0)
+            sign_changes += 1
+        end
+        prev_der = der
+    end
+    unimodal = (sign_changes == 1)
+    println("Численная проверка унимодальности на [", a, ", ", b, "]: смена знака первой производной ", sign_changes, " раз. Унимодальность: ", unimodal)
+    return unimodal
+end
+
+function prove_minimum_rule(f, x_min, precision=1e-5)
+    delta = max(1e-10, precision * 0.5)
+    fpp = num_second_derivative(f, x_min, delta)
+    f0 = f(x_min)
+    rain_left = f(x_min - delta) >= f0 - 1e-12
+    rain_right = f(x_min + delta) >= f0 - 1e-12
+    is_min_rain = rain_left && rain_right
+    is_min = is_min_rain
+    println("Вторая производная в точке (численно): ", fpp)
+    println("Правило дождя: f(x*-h) >= f(x*), f(x*+h) >= f(x*) при h=", delta, " : ", rain_left, ", ", rain_right)
+    println("Точка является минимумом (не максимум и не перегиб): ", is_min)
+    return is_min
+end
+
+f(x) = abs(x^3 - 3 * x)
+
+a, b = svenn(f, 0.0, 0.1)
+println("Метод Свенна: интервал [", a, ", ", b, "]")
+
+x_min, precision = fibonacci_search(f, a, b, 1e-5)
+
+prove_unimodality(f, a, b)
+
+prove_minimum_rule(f, x_min, precision)
+
+\end{breakablelisting}
+
+\newpage
+
+Результат представлен на рисунке~\ref{fig:img1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{let1/screen1.png}
+  \caption{Результат}
+  \label{fig:img1}
+\end{figure}.
+\end{document}
